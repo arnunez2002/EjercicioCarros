@@ -15,10 +15,18 @@ public class CompraDAO {
 		listaCompra = new  ArrayList<Compra> ();
 		opArchivo = new OperacionArchivo();
 	}
-	public void registrarCarro (Compra nuevaCompra) {
-		listaCompra.add(nuevaCompra);
-		 File archivo = new File("Data/Compras.dat");
-			opArchivo.escribirEnArchivoCompra(listaCompra, archivo);
+	public String registrarCarro (Compra nuevaCompra) {
+		;String mensaje = "";
+		if(placaRepetida(nuevaCompra.getPlaca())) {
+			mensaje = "[ERROR] Ya hay un auto con esa placa registrada";
+		}else {
+			listaCompra.add(nuevaCompra);
+			 File archivo = new File("Data/Compras.dat");
+				opArchivo.escribirEnArchivoCompra(listaCompra, archivo);
+				mensaje =  "Se registró un nuevo auto";
+		}
+		return mensaje;
+		
 	}
 	
 	
@@ -30,6 +38,16 @@ public class CompraDAO {
 		return "Se registró nueva compra";
 	}
 	
+	
+	public boolean placaRepetida (String placa) {
+		boolean repetido = false;
+		for (int i = 0; i < listaCompra.size(); i++) {
+			if(listaCompra.get(i).getPlaca().equals(placa)) {
+				repetido = true;
+			}
+		}
+		return repetido;
+	}
 	public String buscarCarro (String placa) {
 		String contenido = "Datos del auto con la placa: " + placa +" es: "+ "\n";
 		for (int i = 0; i < listaCompra.size(); i++) {

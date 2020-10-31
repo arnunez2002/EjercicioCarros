@@ -49,7 +49,6 @@ public class Controller {
 			switch (seleccion) {
 
 			case "1":
-				Compra nuevo = new Compra ("f","f",1,"f",1,1,"f",1,true);
 				vista.imprimir("bienvenido al sistema de registro.");
 				vista.imprimir("Para registrar un vehiculo tienes que colocar sus datos de la siguiente manera:");
 				vista.imprimir("marca,modelo,año,placa,numero de puertas,capacidad,tipo,precio");
@@ -73,9 +72,9 @@ public class Controller {
 		                e.setCapacidad(Integer.parseInt(delimitar.next()));
 		                e.setTipo(delimitar.next());
 		                e.setPrecio(Integer.parseInt(delimitar.next()));
-		                comprarDAO.registrarCarro(e);
+		                String mensaje = comprarDAO.registrarCarro(e);
+		                vista.imprimir(mensaje +"" + "\n");
 		            }
-		          vista.imprimir("Resultado Exitoso. Se regitró una nueva compra" +"" + "\n");
 				break;
 			case "2":
 				 System.exit(0);
