@@ -16,9 +16,7 @@ public class VentaDAO {
 	}
 	
 	
-	public String agregarVentas (String nombreCliente, String marca, String modelo, int año, String placa, int puertas, int capacidad,
-			String tipo, boolean disponible, int valorVenta) {
-		Venta nuevaVenta = new Venta (nombreCliente, marca, modelo, año,placa,  puertas,capacidad, tipo, disponible, valorVenta );
+	public String agregarVentas (Venta nuevaVenta) {
 		listaVenta.add(nuevaVenta);
 		opArchivo.escribirEnArchivoVenta(listaVenta, "Data/Venta.dat");
 		return "Se registró una nueva venta";
@@ -35,22 +33,34 @@ public class VentaDAO {
 						+"Capacidad: "+listaVenta.get(i).getCapacidad() + "\n"
 						+ "Tipo de Auto: "+listaVenta.get(i).getTipo()+ "\n"
 						+ "Precio de venta: "+listaVenta.get(i).getValorVenta();
+				if(listaVenta.get(i).isDisponible()) {
+					contenido = contenido +"disponibilidad: Disponible";
+				}else {
+					contenido = contenido +"disponibilidad: No Disponible";
+				}
 			}
 		}
 		return contenido;
 	}
 	
+	
 	public String  infoTodoslosVehiculos () {
-		String contenido = "La informacion de todos los vehiculos comprados: " + "\n";
+		String contenido = "La informacion de todos los vehiculos vendidos: " + "\n";
 		for (int i = 0; i < listaVenta.size(); i++) {
 
-			contenido = contenido +"Marca: ["+listaVenta.get(i).getMarca() + "] "
+			contenido = contenido  +"Cliente: ["+listaVenta.get(i).getNombreCliente()+ "] "
+			+"Marca: ["+listaVenta.get(i).getMarca() + "] "
 			+"Modelo: ["+listaVenta.get(i).getModelo() + "] " 
 			+"Año: ["+ listaVenta.get(i).getAño() +  "] " 
 			+ "Número de puertas: ["+listaVenta.get(i).getPuertas() + "] "
 			+"Capacidad: ["+listaVenta.get(i).getCapacidad() + "] "
 			+ "Tipo de Auto: ["+listaVenta.get(i).getTipo()+ "]"
-			+ "Precio de compra: ["+listaVenta.get(i).getValorVenta() +"]"+ "\n";
+			+ "Precio de Venta: ["+listaVenta.get(i).getValorVenta() +"]";
+			if(listaVenta.get(i).isDisponible()) {
+				contenido = contenido + "Disponibilidad: [Disponible]"+ "\n";
+			}else {
+				contenido = contenido + "Disponibilidad: [No Disponible]"+ "\n";
+			}
 		
 		}
 		return contenido;

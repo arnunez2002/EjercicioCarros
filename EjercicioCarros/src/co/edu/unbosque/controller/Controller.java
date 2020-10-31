@@ -7,6 +7,7 @@ import java.io.File;
 import java.util.Scanner;
 
 import co.edu.unbosque.model.Compra;
+import co.edu.unbosque.model.Venta;
 import co.edu.unbosque.model.persistance.CompraDAO;
 import co.edu.unbosque.model.persistance.OperacionArchivo;
 import co.edu.unbosque.model.persistance.VentaDAO;
@@ -72,19 +73,67 @@ public class Controller {
 		                e.setCapacidad(Integer.parseInt(delimitar.next()));
 		                e.setTipo(delimitar.next());
 		                e.setPrecio(Integer.parseInt(delimitar.next()));
+		                e.setDisponible(true);
 		                String mensaje = comprarDAO.registrarCarro(e);
 		                vista.imprimir(mensaje +"" + "\n");
 		            }
 				break;
 			case "2":
-				 System.exit(0);
+				vista.imprimir("Bienvenido al sistema de venta");
+				vista.imprimir("Introduce la placa del auto a vender");
+				 Scanner placa = new Scanner(System.in);
+				 int  pos = comprarDAO.atributoCompra(placa.nextLine());
+				 if(pos==-1) {
+					 vista.imprimir("[Error] Estimado usuario. La placa que introduciste no coincide con ninguna placa registrada en los auto disponibles");
+				 }else {
+					 if(comprarDAO.getListaCompra().get(pos).isDisponible()) {
+						 vista.imprimir("¡Perfecto! El auto está disponible");
+						 vista.imprimir("Porfavor, coloque el nombre del cliente y el valor de la venta de la siguiente manera:");
+						 vista.imprimir("nombreCliente, valor de la venta");
+					
+						 Scanner datos = new Scanner(System.in);
+						 Scanner  scannerVenta = new Scanner(datos.nextLine());
+				          while (scannerVenta.hasNextLine()) {
+				        	 
+				                // el objeto scanner lee linea a linea desde el archivo
+				                String linea = scannerVenta.nextLine();
+				                Scanner delimitar = new Scanner(linea);
+				                // se usa una expresi�n regular
+				                // que valida que antes o despues de una coma (,) exista cualquier cosa
+				                // parte la cadena recibida cada vez que encuentre una coma
+				                delimitar.useDelimiter("\\s*,\\s*");
+				                Venta e = new Venta();
+				               
+				                e.setNombreCliente(delimitar.next());
+				                e.setValorVenta(Integer.parseInt(delimitar.next()));
+				                e.setPlaca(placa.nextLine());
+				                e.setMarca(comprarDAO.getListaCompra().get(pos).getMarca());
+				                e.setModelo(comprarDAO.getListaCompra().get(pos).getModelo());
+				                e.setAño(comprarDAO.getListaCompra().get(pos).getAño());
+				                e.setPuertas(comprarDAO.getListaCompra().get(pos).getPuertas());
+				                e.setCapacidad(comprarDAO.getListaCompra().get(pos).getPuertas());
+				                e.setTipo(comprarDAO.getListaCompra().get(pos).getTipo());
+				                e.setDisponible(false);
+				                comprarDAO.getListaCompra().get(pos).setDisponible(false);
+				                String mensaje = ventaDAO.agregarVentas(e);
+				                vista.imprimir(mensaje +"" + "\n");
+				            }
+					 }else {
+						 vista.imprimir("¡Lo sentimos!. Ese carro ya fue vendido");
+					 }
+				
+				 }
+					 
+				
+				
+				
 				break;
 			case "3":
 				System.out.println("opcion 3");
 				break;
 
 			case "4":
-				vista.imprimir("Ingrese el número de la placa para eliminar.");
+				vista.imprimir("Ingrese el nÃºmero de la placa para eliminar.");
 				Scanner elim = new Scanner(System.in);
 				String mensaje = comprarDAO.eliminarCompra(elim.next(), archivo);
 				System.out.println(mensaje);
@@ -92,6 +141,7 @@ public class Controller {
 				break;
 			case "5":
 				System.out.println(comprarDAO.infoTodoslosVehiculos());
+				System.out.println(ventaDAO.infoTodoslosVehiculos());
 				break;
 			case "6":
 				System.out.println("opcion 6");

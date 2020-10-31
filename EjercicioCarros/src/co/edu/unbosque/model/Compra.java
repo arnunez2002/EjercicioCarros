@@ -34,6 +34,9 @@ public class Compra  implements Serializable{
 				
 	}
 
+	public static long getSerializable() {
+		return serializable;
+	}
 	public String getMarca() {
 		return marca;
 	}
@@ -97,14 +100,14 @@ public class Compra  implements Serializable{
 	public void setPrecio(int precio) {
 		this.precio = precio;
 	}
-
 	public boolean isDisponible() {
 		return disponible;
 	}
-
 	public void setDisponible(boolean disponible) {
 		this.disponible = disponible;
 	}
+
+
 	
 
 

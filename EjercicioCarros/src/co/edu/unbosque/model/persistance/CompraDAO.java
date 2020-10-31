@@ -30,13 +30,6 @@ public class CompraDAO {
 	}
 	
 	
-	public String agregarCarro (String marca, String modelo, int año, String placa, int puertas,  int capacidad, String tipo, int precio, boolean disponible) {
-		Compra nuevaCompra = new Compra (marca, modelo, año,placa,  puertas, capacidad,tipo,  precio,disponible  );
-		listaCompra.add(nuevaCompra);
-		 File archivo = new File("Data/Compras.dat");
-		opArchivo.escribirEnArchivoCompra(listaCompra, archivo);
-		return "Se registró nueva compra";
-	}
 	
 	
 	public boolean placaRepetida (String placa) {
@@ -58,12 +51,24 @@ public class CompraDAO {
 				+ "Número de puertas: "+listaCompra.get(i).getPuertas() + "\n"
 				+"Capacidad: "+listaCompra.get(i).getCapacidad() + "\n"
 				+ "Tipo de Auto: "+listaCompra.get(i).getTipo()+ "\n"
-				+ "Precio de compra: "+listaCompra.get(i).getPrecio();
+				+ "Precio de compra: "+listaCompra.get(i).getPrecio()+"\n";
+				if(listaCompra.get(i).isDisponible()) {
+					contenido = contenido +"Disponobilidad: Disponible"+"\n";
+				}else {
+					contenido = contenido +"Disponobilidad: No Disponible"+"\n";
+				}
 			}
 		}
-		return contenido;
+		return contenido;}
+	public int atributoCompra (String placa) {
+		int pos = -1;
+		for (int i = 0; i < listaCompra.size(); i++) {
+			if(listaCompra.get(i).getPlaca().equals(placa)) {
+				pos = i;
+			}
+		}
+		return pos;
 	}
-	
 	
 	
 	public String  modificarCompra (String marca, String modelo, int año, String placa, int puertas,  int capacidad, String tipo, int precio, boolean disponible, File archivo) {
@@ -119,22 +124,24 @@ public class CompraDAO {
 		
 	}
 	
-	public String  infoTodoslosVehiculos () {
-		String contenido = "La informacion de todos los vehiculos comprados: " + "\n";
-		for (int i = 0; i < listaCompra.size(); i++) {
+	public String  infoTodoslosVehiculos () {	String contenido = "La informacion de todos los vehiculos comprados: " + "\n";
+	for (int i = 0; i < listaCompra.size(); i++) {
 
-			contenido = contenido +"Marca: ["+listaCompra.get(i).getMarca() + "] "
-			+"Modelo: ["+listaCompra.get(i).getModelo() + "] "
-			+"Placa: ["+ listaCompra.get(i).getPlaca()+"] "
-			+"Año: ["+ listaCompra.get(i).getAño() +  "] " 
-			+ "Número de puertas: ["+listaCompra.get(i).getPuertas() + "] "
-			+"Capacidad: ["+listaCompra.get(i).getCapacidad() + "] "
-			+ "Tipo de Auto: ["+listaCompra.get(i).getTipo()+ "]"
-			+ "Precio de compra: ["+listaCompra.get(i).getPrecio() +"]"+ "\n";
-		
+		contenido = contenido +"Marca: ["+listaCompra.get(i).getMarca() + "] "
+		+"Modelo: ["+listaCompra.get(i).getModelo() + "] " 
+		+"Año: ["+ listaCompra.get(i).getAño() +  "] " 
+		+ "Número de puertas: ["+listaCompra.get(i).getPuertas() + "] "
+		+"Capacidad: ["+listaCompra.get(i).getCapacidad() + "] "
+		+ "Tipo de Auto: ["+listaCompra.get(i).getTipo()+ "]"
+		+ "Precio de compra: ["+listaCompra.get(i).getPrecio() +"]";
+		if(listaCompra.get(i).isDisponible()) {
+			contenido = contenido + "disponibilidad: [Disponible]"+"\n"; ;
+		}else {
+			contenido = contenido + "disponibilidad: [No disponible]"+"\n"; ;
 		}
-		return contenido;
+	
 	}
+	return contenido;}
 
 	public OperacionArchivo getOpArchivo() {
 		return opArchivo;

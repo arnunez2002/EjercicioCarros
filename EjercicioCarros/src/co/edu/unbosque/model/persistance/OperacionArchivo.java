@@ -29,8 +29,9 @@ public class OperacionArchivo {
 	 */
 	@SuppressWarnings("unchecked")
 	public ArrayList<Compra> leerArchivoCompra (File archivo)  {
+		System.out.println("Entro");
 		ArrayList <Compra> pokemons = new ArrayList <Compra>();
-		if(archivo.length() != 0) {
+		if(archivo.length() != 0	) {
 			try {
 				entrada = new ObjectInputStream(new FileInputStream(archivo));
 				pokemons = (ArrayList <Compra>) entrada.readObject();
@@ -41,8 +42,7 @@ public class OperacionArchivo {
 			catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-			catch (ClassNotFoundException e) {
+			}catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
