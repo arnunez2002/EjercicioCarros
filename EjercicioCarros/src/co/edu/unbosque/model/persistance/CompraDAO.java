@@ -124,7 +124,8 @@ public class CompraDAO {
 		for (int i = 0; i < listaCompra.size(); i++) {
 
 			contenido = contenido +"Marca: ["+listaCompra.get(i).getMarca() + "] "
-			+"Modelo: ["+listaCompra.get(i).getModelo() + "] " 
+			+"Modelo: ["+listaCompra.get(i).getModelo() + "] "
+			+"Placa: ["+ listaCompra.get(i).getPlaca()+"] "
 			+"Año: ["+ listaCompra.get(i).getAño() +  "] " 
 			+ "Número de puertas: ["+listaCompra.get(i).getPuertas() + "] "
 			+"Capacidad: ["+listaCompra.get(i).getCapacidad() + "] "

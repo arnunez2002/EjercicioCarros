@@ -84,6 +84,10 @@ public class Controller {
 				break;
 
 			case "4":
+				vista.imprimir("Ingrese el número de la placa para eliminar.");
+				Scanner elim = new Scanner(System.in);
+				String mensaje = comprarDAO.eliminarCompra(elim.next(), archivo);
+				System.out.println(mensaje);
 				System.out.println("Opcion 4");
 				break;
 			case "5":
