@@ -6,6 +6,7 @@ public class AplMain {
 		// TODO Auto-generated method stub
 		
 		Controller controller = new Controller();
+		controller.operiaciones();
 
 	}
 

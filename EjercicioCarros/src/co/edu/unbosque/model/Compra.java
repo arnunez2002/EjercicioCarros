@@ -16,6 +16,10 @@ public class Compra  implements Serializable{
 	private boolean disponible;
 	private int precio;
 	
+	
+	public Compra () {
+		
+	}
 	public Compra (String marca, String modelo, int año, String placa, int puertas,  int capacidad, String tipo, int precio, boolean disponible) {
 	
 		this.marca = marca;

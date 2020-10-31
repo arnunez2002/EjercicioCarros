@@ -16,6 +16,8 @@ public class CompraDAO {
 		opArchivo = new OperacionArchivo();
 	}
 	
+	
+	
 	public String agregarCarro (String marca, String modelo, int año, String placa, int puertas,  int capacidad, String tipo, int precio, boolean disponible) {
 		Compra nuevaCompra = new Compra (marca, modelo, año,placa,  puertas, capacidad,tipo,  precio,disponible  );
 		listaCompra.add(nuevaCompra);
