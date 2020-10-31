@@ -15,14 +15,17 @@ public class CompraDAO {
 		listaCompra = new  ArrayList<Compra> ();
 		opArchivo = new OperacionArchivo();
 	}
-	
+	public void registrarCarro (Compra nuevaCompra) {
+		listaCompra.add(nuevaCompra);
+		 File archivo = new File("Data/Compras.dat");
+			opArchivo.escribirEnArchivoCompra(listaCompra, archivo);
+	}
 	
 	
 	public String agregarCarro (String marca, String modelo, int año, String placa, int puertas,  int capacidad, String tipo, int precio, boolean disponible) {
 		Compra nuevaCompra = new Compra (marca, modelo, año,placa,  puertas, capacidad,tipo,  precio,disponible  );
 		listaCompra.add(nuevaCompra);
 		 File archivo = new File("Data/Compras.dat");
-		opArchivo = new OperacionArchivo();
 		opArchivo.escribirEnArchivoCompra(listaCompra, archivo);
 		return "Se registró nueva compra";
 	}

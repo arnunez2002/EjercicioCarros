@@ -27,13 +27,42 @@ public class OperacionArchivo {
 	 * <b>post</b>Agrega la informacion en el arrayList.<br>
 	 * @param listaCarrosComprados Es la lista done se almacenan. listaCarrosComprados != null.
 	 */
+	@SuppressWarnings("unchecked")
 	public ArrayList<Compra> leerArchivoCompra (File archivo)  {
-		System.out.println("Entro");
 		ArrayList <Compra> pokemons = new ArrayList <Compra>();
-		if(archivo.length() != 0	) {
+		if(archivo.length() != 0) {
 			try {
 				entrada = new ObjectInputStream(new FileInputStream(archivo));
 				pokemons = (ArrayList <Compra>) entrada.readObject();
+			}catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return pokemons;
+	}
+	/**
+	 * Este método lee un archivo.dat y lo almacena en un arrayList
+	 * <b>pre</b>Debe existir un archivo archivo.dat != null.<br>
+	 * <b>post</b>Agrega la informacion en el arrayList.<br>
+	 * @param listaCarrosVendidos Es la lista done se almacenan. listaCarrosComprados != null.
+	 */
+	@SuppressWarnings("unchecked")
+	public ArrayList<Venta> leerArchivoVenta (File archivo)  {
+		System.out.println("Entro");
+		ArrayList <Venta> pokemons = new ArrayList <Venta>();
+		if(archivo.length() != 0	) {
+			try {
+				entrada = new ObjectInputStream(new FileInputStream(archivo));
+				pokemons = (ArrayList <Venta>) entrada.readObject();
 			}catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -48,38 +77,6 @@ public class OperacionArchivo {
 		}
 		return pokemons;
 	}
-	/**
-	 * Este método lee un archivo.dat y lo almacena en un arrayList
-	 * <b>pre</b>Debe existir un archivo archivo.dat != null.<br>
-	 * <b>post</b>Agrega la informacion en el arrayList.<br>
-	 * @param listaCarrosVendidos Es la lista done se almacenan. listaCarrosComprados != null.
-	 */
-	public ArrayList<Venta> leerArchivoVenta (File archivo)  {
-		ArrayList <Venta> listaCarrosVendidos = new ArrayList <Venta>();
-		if(archivo.length() != 0	) {
-			try {
-				entrada = new ObjectInputStream(new FileInputStream(archivo));
-				listaCarrosVendidos = (ArrayList <Venta>) entrada.readObject();
-			}catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return listaCarrosVendidos;
-	}
-	
-	
-	
-	
-	
-	
 	
 	/**
 	 * Este método escribe en un archivo.dat.
@@ -99,10 +96,6 @@ public class OperacionArchivo {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
-	
 	
 	/**
 	 * Este método escribe en un archivo.dat.

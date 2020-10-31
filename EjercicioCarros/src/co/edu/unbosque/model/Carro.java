@@ -1,9 +1,11 @@
 package co.edu.unbosque.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Carro {
-
+public class Carro  implements Serializable{
+	private static final long serializable = 1l;
+	
 	private String marca;
 	private String modelo;
 	private int año;
