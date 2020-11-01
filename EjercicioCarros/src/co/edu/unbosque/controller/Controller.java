@@ -106,7 +106,7 @@ public class Controller {
 				               
 				                e.setNombreCliente(delimitar.next());
 				                e.setValorVenta(Integer.parseInt(delimitar.next()));
-				                e.setPlaca(placa.nextLine());
+				                e.setPlaca(comprarDAO.getListaCompra().get(pos).getPlaca());
 				                e.setMarca(comprarDAO.getListaCompra().get(pos).getMarca());
 				                e.setModelo(comprarDAO.getListaCompra().get(pos).getModelo());
 				                e.setAño(comprarDAO.getListaCompra().get(pos).getAño());
@@ -123,9 +123,6 @@ public class Controller {
 					 }
 				
 				 }
-					 
-				
-				
 				
 				break;
 			case "3":
@@ -133,20 +130,25 @@ public class Controller {
 				break;
 
 			case "4":
-				vista.imprimir("Ingrese el nÃºmero de la placa para eliminar.");
+				vista.imprimir("Ingrese la placa para eliminar.");
 				Scanner elim = new Scanner(System.in);
-				String mensaje = comprarDAO.eliminarCompra(elim.next(), archivo);
-				System.out.println(mensaje);
-				System.out.println("Opcion 4");
+				String placaElimimnar = elim.next();
+				if(comprarDAO.placaRepetida(placaElimimnar)) {
+				 comprarDAO.eliminarCompra(placaElimimnar, archivo);
+				 vista.imprimir(ventaDAO.eliminarVenta(placaElimimnar, archivoVenta));
+					vista.imprimir(""+"\n");
+				}else {
+					vista.imprimir("[Error] Estimado usuario. La placa que introduciste no coincide con ninguna placa registrada en los auto disponibles");
+				}
 				break;
 			case "5":
-				System.out.println(comprarDAO.infoTodoslosVehiculos());
-				System.out.println(ventaDAO.infoTodoslosVehiculos());
+				vista.imprimir(comprarDAO.infoTodoslosVehiculos());
+				vista.imprimir(ventaDAO.infoTodoslosVehiculos());
 				break;
 			case "6":
 				System.out.println("opcion 6");
 				break;
-			default: System.out.println("[ERROR]  Marcaste una opcion no valida");
+			default: vista.imprimir("[ERROR]  Marcaste una opcion no valida");
 	        break;
 
 			}

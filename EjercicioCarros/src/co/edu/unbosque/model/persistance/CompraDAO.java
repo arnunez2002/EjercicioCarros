@@ -45,8 +45,10 @@ public class CompraDAO {
 		String contenido = "Datos del auto con la placa: " + placa +" es: "+ "\n";
 		for (int i = 0; i < listaCompra.size(); i++) {
 			if(listaCompra.get(i).getPlaca().equals(placa)) {
-				contenido = contenido +listaCompra.get(i).getMarca() + "\n"
+				contenido = contenido 
+				+"Marca: "+listaCompra.get(i).getMarca() + "\n"
 				+"Modelo: "+listaCompra.get(i).getModelo() + "\n" 
+				+"Placa: "+listaCompra.get(i).getPlaca() + "\n"
 				+"Año: "+ listaCompra.get(i).getAño() +  "\n" 
 				+ "Número de puertas: "+listaCompra.get(i).getPuertas() + "\n"
 				+"Capacidad: "+listaCompra.get(i).getCapacidad() + "\n"
@@ -71,35 +73,6 @@ public class CompraDAO {
 	}
 	
 	
-	public String  modificarCompra (String marca, String modelo, int año, String placa, int puertas,  int capacidad, String tipo, int precio, boolean disponible, File archivo) {
-		
-		for (int i = 0; i < listaCompra.size(); i++) {
-			if(listaCompra.get(i).getPlaca().equals(placa)) {
-				listaCompra.get(i).setAño(año);
-				listaCompra.get(i).setMarca(marca);
-				listaCompra.get(i).setModelo(modelo);
-				listaCompra.get(i).setPlaca(placa);
-				listaCompra.get(i).setPuertas(puertas);
-				listaCompra.get(i).setCapacidad(capacidad);
-				listaCompra.get(i).setTipo(tipo);
-				listaCompra.get(i).setPrecio(precio);
-			}
-		}
-		
-		archivo.delete();
-		try {
-			archivo.createNewFile();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("Ocurró un error");
-		}
-		
-		opArchivo.escribirEnArchivoCompra(listaCompra, archivo);
-		
-		
-		return "Se realizaron cambios";
-	}
 	
 	public String eliminarCompra (String placa, File archivo) {
 		for (int i = 0; i < listaCompra.size(); i++) {
@@ -135,9 +108,9 @@ public class CompraDAO {
 		+ "Tipo de Auto: ["+listaCompra.get(i).getTipo()+ "]"
 		+ "Precio de compra: ["+listaCompra.get(i).getPrecio() +"]";
 		if(listaCompra.get(i).isDisponible()) {
-			contenido = contenido + "disponibilidad: [Disponible]"+"\n"; ;
+			contenido = contenido + " disponibilidad: [Disponible]"+"\n"; ;
 		}else {
-			contenido = contenido + "disponibilidad: [No disponible]"+"\n"; ;
+			contenido = contenido + " disponibilidad: [No disponible]"+"\n"; ;
 		}
 	
 	}

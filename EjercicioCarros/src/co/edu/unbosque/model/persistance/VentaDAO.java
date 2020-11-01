@@ -1,6 +1,7 @@
 package co.edu.unbosque.model.persistance;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import co.edu.unbosque.model.Venta;
@@ -51,11 +52,12 @@ public class VentaDAO {
 			contenido = contenido  +"Cliente: ["+listaVenta.get(i).getNombreCliente()+ "] "
 			+"Marca: ["+listaVenta.get(i).getMarca() + "] "
 			+"Modelo: ["+listaVenta.get(i).getModelo() + "] " 
+			+"Placa: [" +  listaVenta.get(i).getPlaca() + "] "
 			+"Año: ["+ listaVenta.get(i).getAño() +  "] " 
 			+ "Número de puertas: ["+listaVenta.get(i).getPuertas() + "] "
 			+"Capacidad: ["+listaVenta.get(i).getCapacidad() + "] "
 			+ "Tipo de Auto: ["+listaVenta.get(i).getTipo()+ "]"
-			+ "Precio de Venta: ["+listaVenta.get(i).getValorVenta() +"]";
+			+ "Precio de Venta: ["+listaVenta.get(i).getValorVenta() +"] ";
 			if(listaVenta.get(i).isDisponible()) {
 				contenido = contenido + "Disponibilidad: [Disponible]"+ "\n";
 			}else {
@@ -64,6 +66,26 @@ public class VentaDAO {
 		
 		}
 		return contenido;
+	}
+	
+	
+	
+	public String  eliminarVenta(String placa, File archivo) {
+		for (int i = 0; i < listaVenta.size(); i++) {
+			if (listaVenta.get(i).getPlaca().equals(placa)) {
+				listaVenta.remove(i);
+				archivo.delete();
+				try {
+					archivo.createNewFile();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				opArchivo.escribirEnArchivoVentaLeeFile(listaVenta, archivo);
+			}
+		}
+		return "Se eliminó el carro de la lista de los carros comprados";
+		
 	}
 
 

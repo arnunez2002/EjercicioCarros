@@ -97,6 +97,20 @@ public class OperacionArchivo {
 		}
 	}
 	
+	public void escribirEnArchivoVentaLeeFile (ArrayList<Venta> carrosVendidos, File archivo) {
+		try {
+			salida= new ObjectOutputStream(new FileOutputStream(archivo));
+			salida.writeObject(carrosVendidos);
+			salida.close();			
+		} catch (FileNotFoundException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * Este método escribe en un archivo.dat.
 	 * <b>pre</b>Debe existir un archivo archivo.dat y un arrayList que leer != null.<br>
