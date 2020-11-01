@@ -37,7 +37,7 @@ public class VentaDAO {
 				if(listaVenta.get(i).isDisponible()) {
 					contenido = contenido +"disponibilidad: Disponible";
 				}else {
-					contenido = contenido +"disponibilidad: No Disponible";
+					contenido = contenido +"disponibilidad: Vendido";
 				}
 			}
 		}
@@ -61,7 +61,7 @@ public class VentaDAO {
 			if(listaVenta.get(i).isDisponible()) {
 				contenido = contenido + "Disponibilidad: [Disponible]"+ "\n";
 			}else {
-				contenido = contenido + "Disponibilidad: [No Disponible]"+ "\n";
+				contenido = contenido + "Disponibilidad: [Vendido]"+ "\n";
 			}
 		
 		}

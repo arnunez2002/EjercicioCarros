@@ -57,7 +57,7 @@ public class CompraDAO {
 				if(listaCompra.get(i).isDisponible()) {
 					contenido = contenido +"Disponobilidad: Disponible"+"\n";
 				}else {
-					contenido = contenido +"Disponobilidad: No Disponible"+"\n";
+					contenido = contenido +"Disponobilidad: Vendido"+"\n";
 				}
 			}
 		}
@@ -71,8 +71,33 @@ public class CompraDAO {
 		}
 		return pos;
 	}
-	
-	
+	public String mostrarDisponibilidad () {
+		String mensaje = "" + "\n";
+		if(listaCompra.size()==0) {
+			mensaje = "¡No hay ningun auto registrado!"+ "\n"+ "\n";
+		}else {
+			mensaje = mensaje + "Placas de los autos y su estado "+ "\n";
+			for (int i = 0; i < listaCompra.size(); i++) {
+				if(listaCompra.get(i).isDisponible()) {
+					mensaje = mensaje + "["+listaCompra.get(i).getPlaca()+ "]  [Disponible]"+ "\n";
+				}else {
+					mensaje = mensaje + "["+listaCompra.get(i).getPlaca()+ "]  [Vendido]"+ "\n";
+				}
+			}
+		}
+		return mensaje;
+	}
+	public void cambiarDisponibilidad (int i, boolean disponibilidad, File archivo) {
+		listaCompra.get(i).setDisponible(disponibilidad);
+		archivo.delete();
+		try {
+			archivo.createNewFile();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		opArchivo.escribirEnArchivoCompra(listaCompra,archivo);
+	}
 	
 	public String eliminarCompra (String placa, File archivo) {
 		for (int i = 0; i < listaCompra.size(); i++) {
@@ -110,7 +135,7 @@ public class CompraDAO {
 		if(listaCompra.get(i).isDisponible()) {
 			contenido = contenido + " disponibilidad: [Disponible]"+"\n"; ;
 		}else {
-			contenido = contenido + " disponibilidad: [No disponible]"+"\n"; ;
+			contenido = contenido + " disponibilidad: [Vendido]"+"\n"; ;
 		}
 	
 	}

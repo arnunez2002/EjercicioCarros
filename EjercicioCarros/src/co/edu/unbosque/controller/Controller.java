@@ -43,7 +43,8 @@ public class Controller {
 			vista.imprimir("3: para buscar un vehiculo");
 			vista.imprimir("4: para eliminar u vehiculo");
 			vista.imprimir("5: informacion de todos los vehiculos");
-			vista.imprimir("6: realizar comparaciones");
+			vista.imprimir("6: Ver Estado [Disponible/Vendido]");
+			vista.imprimir("7: realizar comparaciones");
 
 			Scanner seleccionPrincipal = new Scanner(System.in);
 			String seleccion = seleccionPrincipal.nextLine();
@@ -115,6 +116,7 @@ public class Controller {
 				                e.setTipo(comprarDAO.getListaCompra().get(pos).getTipo());
 				                e.setDisponible(false);
 				                comprarDAO.getListaCompra().get(pos).setDisponible(false);
+				                comprarDAO.cambiarDisponibilidad(pos,false,archivo);
 				                String mensaje = ventaDAO.agregarVentas(e);
 				                vista.imprimir(mensaje +"" + "\n");
 				            }
@@ -146,7 +148,10 @@ public class Controller {
 				vista.imprimir(ventaDAO.infoTodoslosVehiculos());
 				break;
 			case "6":
-				System.out.println("opcion 6");
+				vista.imprimir(comprarDAO.mostrarDisponibilidad());
+				break;
+			case "7":
+				System.out.println("opcion 7");
 				break;
 			default: vista.imprimir("[ERROR]  Marcaste una opcion no valida");
 	        break;
