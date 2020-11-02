@@ -128,7 +128,11 @@ public class Controller {
 				
 				break;
 			case "3":
-				System.out.println("opcion 3");
+				System.out.println("Ingresa la placa.");
+				Scanner buscar = new Scanner(System.in);
+				String placaBuscar = buscar.next();
+				String aux = comprarDAO.buscarCarro(placaBuscar);
+				System.out.println(aux);
 				break;
 
 			case "4":
@@ -151,7 +155,13 @@ public class Controller {
 				vista.imprimir(comprarDAO.mostrarDisponibilidad());
 				break;
 			case "7":
-				System.out.println("opcion 7");
+				System.out.println("¿Que propiedad del veículo quieres comparar?");
+				Scanner comp = new Scanner(System.in);
+				String comparar = comp.next();
+				System.out.println("Ingrese el valor que desea comparar.");
+				Scanner valorP = new Scanner(System.in);
+				String valor = valorP.next();
+				System.out.println(comprarDAO.comparar(comparar,valor));
 				break;
 			default: vista.imprimir("[ERROR]  Marcaste una opcion no valida");
 	        break;

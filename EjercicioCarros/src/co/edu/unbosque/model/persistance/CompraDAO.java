@@ -62,6 +62,7 @@ public class CompraDAO {
 			}
 		}
 		return contenido;}
+	
 	public int atributoCompra (String placa) {
 		int pos = -1;
 		for (int i = 0; i < listaCompra.size(); i++) {
@@ -127,6 +128,7 @@ public class CompraDAO {
 
 		contenido = contenido +"Marca: ["+listaCompra.get(i).getMarca() + "] "
 		+"Modelo: ["+listaCompra.get(i).getModelo() + "] " 
+		+"Placa: ["+listaCompra.get(i).getPlaca()+"] "
 		+"Año: ["+ listaCompra.get(i).getAño() +  "] " 
 		+ "Número de puertas: ["+listaCompra.get(i).getPuertas() + "] "
 		+"Capacidad: ["+listaCompra.get(i).getCapacidad() + "] "
@@ -140,7 +142,156 @@ public class CompraDAO {
 	
 	}
 	return contenido;}
-
+	
+	public String comparar(String b,String a) {
+		boolean comp = false;
+		switch (b.toLowerCase()) {
+		case "modelo":
+			for (int i = 0; i < listaCompra.size(); i++) {
+				if(a.contentEquals(listaCompra.get(i).getModelo())) {
+					String contenido = 
+								"Marca: ["+listaCompra.get(i).getMarca() + "] "
+								+"Modelo: ["+listaCompra.get(i).getModelo() + "] " 
+								+"Año: ["+ listaCompra.get(i).getAño() +  "] " 
+								+ "Número de puertas: ["+listaCompra.get(i).getPuertas() + "] "
+								+"Capacidad: ["+listaCompra.get(i).getCapacidad() + "] "
+								+ "Tipo de Auto: ["+listaCompra.get(i).getTipo()+ "]"
+								+ "Precio de compra: ["+listaCompra.get(i).getPrecio() +"]";
+								if(listaCompra.get(i).isDisponible()) {
+									contenido = contenido + " disponibilidad: [Disponible]"+"\n"; ;
+								}else {
+									contenido = contenido + " disponibilidad: [Vendido]"+"\n"; ;
+								}
+					System.out.println(contenido);
+				comp = true;
+				}
+			}
+			break;
+		case "año":
+			int as=Integer.parseInt(a);
+			for (int i = 0; i < listaCompra.size(); i++) {
+				if(as==listaCompra.get(i).getAño()) {
+					String contenido = 
+							"Marca: ["+listaCompra.get(i).getMarca() + "] "
+							+"Modelo: ["+listaCompra.get(i).getModelo() + "] " 
+							+"Año: ["+ listaCompra.get(i).getAño() +  "] " 
+							+ "Número de puertas: ["+listaCompra.get(i).getPuertas() + "] "
+							+"Capacidad: ["+listaCompra.get(i).getCapacidad() + "] "
+							+ "Tipo de Auto: ["+listaCompra.get(i).getTipo()+ "]"
+							+ "Precio de compra: ["+listaCompra.get(i).getPrecio() +"]";
+							if(listaCompra.get(i).isDisponible()) {
+								contenido = contenido + " disponibilidad: [Disponible]"+"\n"; ;
+							}else {
+								contenido = contenido + " disponibilidad: [Vendido]"+"\n"; ;
+							}
+				System.out.println(contenido);
+				comp = true;
+				}
+			}
+			break;
+		case "placa":
+			for (int i = 0; i < listaCompra.size(); i++) {
+				if(a.contentEquals(listaCompra.get(i).getPlaca())) {
+					String contenido = 
+							"Marca: ["+listaCompra.get(i).getMarca() + "] "
+							+"Modelo: ["+listaCompra.get(i).getModelo() + "] " 
+							+"Año: ["+ listaCompra.get(i).getAño() +  "] " 
+							+ "Número de puertas: ["+listaCompra.get(i).getPuertas() + "] "
+							+"Capacidad: ["+listaCompra.get(i).getCapacidad() + "] "
+							+ "Tipo de Auto: ["+listaCompra.get(i).getTipo()+ "]"
+							+ "Precio de compra: ["+listaCompra.get(i).getPrecio() +"]";
+							if(listaCompra.get(i).isDisponible()) {
+								contenido = contenido + " disponibilidad: [Disponible]"+"\n"; ;
+							}else {
+								contenido = contenido + " disponibilidad: [Vendido]"+"\n"; ;
+							}
+				System.out.println(contenido);
+				comp = true;
+				}
+			}
+			break;
+		case "capacidad":
+			as = Integer.parseInt(a);
+			for (int i = 0; i < listaCompra.size(); i++) {
+				if(as==listaCompra.get(i).getCapacidad()) {
+					String contenido = 
+							"Marca: ["+listaCompra.get(i).getMarca() + "] "
+							+"Modelo: ["+listaCompra.get(i).getModelo() + "] " 
+							+"Año: ["+ listaCompra.get(i).getAño() +  "] " 
+							+ "Número de puertas: ["+listaCompra.get(i).getPuertas() + "] "
+							+"Capacidad: ["+listaCompra.get(i).getCapacidad() + "] "
+							+ "Tipo de Auto: ["+listaCompra.get(i).getTipo()+ "]"
+							+ "Precio de compra: ["+listaCompra.get(i).getPrecio() +"]";
+							if(listaCompra.get(i).isDisponible()) {
+								contenido = contenido + " disponibilidad: [Disponible]"+"\n"; ;
+							}else {
+								contenido = contenido + " disponibilidad: [Vendido]"+"\n"; ;
+							}
+				System.out.println(contenido);
+				comp = true;
+				}
+			}
+			break;
+		case "puertas":
+			as = Integer.parseInt(a);
+			for (int i = 0; i < listaCompra.size(); i++) {
+				if(as==listaCompra.get(i).getPuertas()) {
+					String contenido = 
+							"Marca: ["+listaCompra.get(i).getMarca() + "] "
+							+"Modelo: ["+listaCompra.get(i).getModelo() + "] " 
+							+"Año: ["+ listaCompra.get(i).getAño() +  "] " 
+							+ "Número de puertas: ["+listaCompra.get(i).getPuertas() + "] "
+							+"Capacidad: ["+listaCompra.get(i).getCapacidad() + "] "
+							+ "Tipo de Auto: ["+listaCompra.get(i).getTipo()+ "]"
+							+ "Precio de compra: ["+listaCompra.get(i).getPrecio() +"]";
+							if(listaCompra.get(i).isDisponible()) {
+								contenido = contenido + " disponibilidad: [Disponible]"+"\n"; ;
+							}else {
+								contenido = contenido + " disponibilidad: [Vendido]"+"\n"; ;
+							}
+				System.out.println(contenido);
+				comp = true;
+				}
+			}
+			break;
+		case "tipo":
+			for (int i = 0; i < listaCompra.size(); i++) {
+				if(a.contentEquals(listaCompra.get(i).getTipo())) {
+					String contenido = 
+							"Marca: ["+listaCompra.get(i).getMarca() + "] "
+							+"Modelo: ["+listaCompra.get(i).getModelo() + "] " 
+							+"Año: ["+ listaCompra.get(i).getAño() +  "] " 
+							+ "Número de puertas: ["+listaCompra.get(i).getPuertas() + "] "
+							+"Capacidad: ["+listaCompra.get(i).getCapacidad() + "] "
+							+ "Tipo de Auto: ["+listaCompra.get(i).getTipo()+ "]"
+							+ "Precio de compra: ["+listaCompra.get(i).getPrecio() +"]";
+							if(listaCompra.get(i).isDisponible()) {
+								contenido = contenido + " disponibilidad: [Disponible]"+"\n"; ;
+							}else {
+								contenido = contenido + " disponibilidad: [Vendido]"+"\n"; ;
+							}
+				System.out.println(contenido);
+				comp = true;
+				}
+			}
+			break;
+		}
+		if(comp==true) {
+			return "Se comparó exitosamente";
+		}
+		else {
+			return "No se encontro el valor deseado en la lista";
+		}
+	}
+	
+	public void buscarVehiculo(String a) {
+		for (int i = 0; i < listaCompra.size(); i++) {
+			
+		} {
+			
+		}
+	}
+	
 	public OperacionArchivo getOpArchivo() {
 		return opArchivo;
 	}
