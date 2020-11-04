@@ -14,14 +14,14 @@ public class CompraDAO {
 	public CompraDAO() {
 		listaCompra = new  ArrayList<Compra> ();
 		opArchivo = new OperacionArchivo();
+		verificarInvariante();
 	}
-	public String registrarCarro (Compra nuevaCompra) {
+	public String registrarCarro (Compra nuevaCompra, File archivo) {
 		;String mensaje = "";
 		if(placaRepetida(nuevaCompra.getPlaca())) {
 			mensaje = "[ERROR] Ya hay un auto con esa placa registrada";
 		}else {
 			listaCompra.add(nuevaCompra);
-			 File archivo = new File("Data/Compras.dat");
 				opArchivo.escribirEnArchivoCompra(listaCompra, archivo);
 				mensaje =  "Se registró un nuevo auto";
 		}
@@ -42,10 +42,11 @@ public class CompraDAO {
 		return repetido;
 	}
 	public String buscarCarro (String placa) {
-		String contenido = "Datos del auto con la placa: " + placa +" es: "+ "\n";
+		String contenido = "";
 		for (int i = 0; i < listaCompra.size(); i++) {
-			if(listaCompra.get(i).getPlaca().equals(placa)) {
-				contenido = contenido 
+			if(listaCompra.get(i).getPlaca().contentEquals(placa)) {
+				contenido = "Datos del auto con la placa: " + placa +" es: "+ "\n";
+				contenido = contenido
 				+"Marca: "+listaCompra.get(i).getMarca() + "\n"
 				+"Modelo: "+listaCompra.get(i).getModelo() + "\n" 
 				+"Placa: "+listaCompra.get(i).getPlaca() + "\n"
@@ -59,6 +60,9 @@ public class CompraDAO {
 				}else {
 					contenido = contenido +"Disponobilidad: Vendido"+"\n";
 				}
+			}
+			else {
+				contenido = "No se encontro carro con la placa";
 			}
 		}
 		return contenido;}
@@ -284,14 +288,9 @@ public class CompraDAO {
 		}
 	}
 	
-	public void buscarVehiculo(String a) {
-		for (int i = 0; i < listaCompra.size(); i++) {
-			
-		} {
-			
-		}
+	private void verificarInvariante() {
+		assert opArchivo != null : "El archivo no puede ser vacio";
 	}
-	
 	public OperacionArchivo getOpArchivo() {
 		return opArchivo;
 	}

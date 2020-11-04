@@ -75,7 +75,7 @@ public class Controller {
 		                e.setTipo(delimitar.next());
 		                e.setPrecio(Integer.parseInt(delimitar.next()));
 		                e.setDisponible(true);
-		                String mensaje = comprarDAO.registrarCarro(e);
+		                String mensaje = comprarDAO.registrarCarro(e, archivo);
 		                vista.imprimir(mensaje +"" + "\n");
 		            }
 				break;

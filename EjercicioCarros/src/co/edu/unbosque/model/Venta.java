@@ -18,7 +18,7 @@ public class Venta implements Serializable {
 	private int valorVenta;
 
 	public Venta() {
-
+		verificarInvariante();
 	}
 
 	public Venta(String nombreCliente, String marca, String modelo, int año, String placa, int puertas, int capacidad,
@@ -34,6 +34,17 @@ public class Venta implements Serializable {
 		this.valorVenta = valorVenta;
 	}
 
+	private void verificarInvariante() {
+		assert nombreCliente != null && nombreCliente != "": "El cliente no puede ser vacio";
+		assert marca != null && marca != "": "La marca no puede ser vacío";
+		assert modelo != null && modelo != "": "El modelo no puede ser null";
+		assert año>0 : "El año no puede ser negativo o 0";
+		assert placa != null && placa != "": "La placa no puede ser vacio";
+		assert puertas>0 : "Las puertas no pueden ser menor o igual a 0";
+		assert capacidad>0 : "La capacidad no puede ser menor o igual a 0";
+		assert valorVenta>0 : "El valor no puede ser menor o igual a 0";
+	}
+	
 	public String getNombreCliente() {
 		return nombreCliente;
 	}

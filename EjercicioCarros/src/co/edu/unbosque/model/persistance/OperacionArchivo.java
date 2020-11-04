@@ -62,7 +62,8 @@ public class OperacionArchivo {
 		if(archivo.length() != 0	) {
 			try {
 				entrada = new ObjectInputStream(new FileInputStream(archivo));
-				pokemons = (ArrayList <Venta>) entrada.readObject();
+				pokemons = (ArrayList <Venta>) 
+				entrada.readObject();
 			}catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -83,7 +84,7 @@ public class OperacionArchivo {
 	 * <b>pre</b>Debe existir un archivo archivo.dat y un arrayList que leer != null.<br>
 	 * <b>post</b>Agrega la informacion del arrayList al archivo.dat .<br>
 	 */
-	public void escribirEnArchivoVenta (ArrayList<Venta> carrosVendidos, String archivo) {
+	public void escribirEnArchivoVenta (ArrayList<Venta> carrosVendidos, File archivo) {
 		try {
 			salida= new ObjectOutputStream(new FileOutputStream(archivo));
 			salida.writeObject(carrosVendidos);

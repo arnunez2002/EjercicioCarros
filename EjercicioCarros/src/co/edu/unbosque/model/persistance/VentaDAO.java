@@ -10,16 +10,19 @@ public class VentaDAO {
 
 	private OperacionArchivo opArchivo;
 	private ArrayList<Venta> listaVenta;
+	File archivo;
 	
 	public VentaDAO () {
 		listaVenta = new  ArrayList<Venta> ();
 		opArchivo = new OperacionArchivo();
+		archivo = new File("Data/Venta.dat");
+		verificarInvariante();
 	}
 	
 	
 	public String agregarVentas (Venta nuevaVenta) {
 		listaVenta.add(nuevaVenta);
-		opArchivo.escribirEnArchivoVenta(listaVenta, "Data/Venta.dat");
+		opArchivo.escribirEnArchivoVenta(listaVenta, archivo);
 		return "Se registró una nueva venta";
 	}
 	
@@ -88,6 +91,9 @@ public class VentaDAO {
 		
 	}
 
+	private void verificarInvariante() {
+		assert opArchivo != null : "El archivo no puede ser vacio";
+	}
 
 	public OperacionArchivo getOpArchivo() {
 		return opArchivo;

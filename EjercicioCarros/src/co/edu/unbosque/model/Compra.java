@@ -18,7 +18,7 @@ public class Compra  implements Serializable{
 	
 	
 	public Compra () {
-		
+		verificarInvariante();
 	}
 	public Compra (String marca, String modelo, int año, String placa, int puertas,  int capacidad, String tipo, int precio, boolean disponible) {
 	
@@ -32,6 +32,15 @@ public class Compra  implements Serializable{
 		this.precio= precio;
 		this.disponible = disponible;
 				
+	}
+	
+	private void verificarInvariante() {
+		assert marca != null && marca != "" : "La marca no puede ser vacío";
+		assert modelo != null && modelo != "": "El modelo no puede ser null";
+		assert año>0 : "El año no puede ser negativo o 0";
+		assert placa != null && placa != "": "La placa no puede ser vacio";
+		assert puertas>0 : "Las puertas no pueden ser menor o igual a 0";
+		assert capacidad>0 : "La capacidad no puede ser menor o igual a 0";
 	}
 
 	public static long getSerializable() {
