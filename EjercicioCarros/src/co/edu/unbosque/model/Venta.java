@@ -1,11 +1,11 @@
 package co.edu.unbosque.model;
 
 import java.io.Serializable;
-
+import java.util.Date;
 public class Venta implements Serializable {
 
-	private static final long serializable = 1l;
 
+	private static final long serializable = 1l;
 	private String nombreCliente;
 	private String marca;
 	private String modelo;
@@ -123,6 +123,10 @@ public class Venta implements Serializable {
 
 	public void setValorVenta(int valorVenta) {
 		this.valorVenta = valorVenta;
+	}
+
+	public static long getSerializable() {
+		return serializable;
 	}
 
 }

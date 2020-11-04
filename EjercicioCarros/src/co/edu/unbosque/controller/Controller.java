@@ -29,7 +29,7 @@ public class Controller {
 		comprarDAO = new CompraDAO();
 		ventaDAO = new VentaDAO();
 		comprarDAO.setListaCompra(opArchivo.leerArchivoCompra(archivo));
-		ventaDAO.setListaVenta(opArchivo.leerArchivoVenta(archivoVenta));
+//		ventaDAO.setListaVenta(opArchivo.leerArchivoVenta(archivoVenta));
 		
 	}
 
