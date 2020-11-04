@@ -1,7 +1,6 @@
 package co.edu.unbosque.test;
 
 import java.io.File;
-import java.util.ArrayList;
 
 import co.edu.unbosque.model.Compra;
 import co.edu.unbosque.model.persistance.CompraDAO;

@@ -17,7 +17,7 @@ public class CompraDAO {
 		verificarInvariante();
 	}
 	public String registrarCarro (Compra nuevaCompra, File archivo) {
-		;String mensaje = "";
+		String mensaje = "";
 		if(placaRepetida(nuevaCompra.getPlaca())) {
 			mensaje = "[ERROR] Ya hay un auto con esa placa registrada";
 		}else {
