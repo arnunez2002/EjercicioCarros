@@ -4,6 +4,8 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import co.edu.unbosque.model.Compra;
@@ -57,26 +59,48 @@ public class Controller {
 				
 				Scanner datosCompra = new Scanner(System.in);
 				Scanner  scanner = new Scanner(datosCompra.nextLine());
+				ArrayList<String> atributos = new ArrayList<String>();
 		          while (scanner.hasNextLine()) {
-		                // el objeto scanner lee linea a linea desde el archivo
-		                String linea = scanner.nextLine();
-		                Scanner delimitar = new Scanner(linea);
-		                // se usa una expresi�n regular
-		                // que valida que antes o despues de una coma (,) exista cualquier cosa
-		                // parte la cadena recibida cada vez que encuentre una coma
-		                delimitar.useDelimiter("\\s*,\\s*");
-		                Compra e = new Compra();
-		                e.setMarca(delimitar.next());
-		                e.setModelo(delimitar.next());
-		                e.setAño(Integer.parseInt(delimitar.next()));
-		                e.setPlaca(delimitar.next());
-		                e.setPuertas(Integer.parseInt(delimitar.next()));
-		                e.setCapacidad(Integer.parseInt(delimitar.next()));
-		                e.setTipo(delimitar.next());
-		                e.setPrecio(Integer.parseInt(delimitar.next()));
-		                e.setDisponible(true);
-		                String mensaje = comprarDAO.registrarCarro(e, archivo);
-		                vista.imprimir(mensaje +"" + "\n");
+		        	  
+		        	  try {
+		        		  // el objeto scanner lee linea a linea desde el archivo
+			                String linea = scanner.nextLine();
+			                Scanner delimitar = new Scanner(linea);
+			                // se usa una expresi�n regular
+			                // que valida que antes o despues de una coma (,) exista cualquier cosa
+			                // parte la cadena recibida cada vez que encuentre una coma
+			                delimitar.useDelimiter("\\s*,\\s*");
+			                
+			                while(delimitar.hasNext()){  
+			                    System.out.println(delimitar.next());  
+			                    atributos.add(delimitar.next());
+			                }  
+			                
+			                if(atributos.size()==7) {
+			                	System.out.println("Se ingresó bien");
+			                    Compra e = new Compra();
+				                e.setMarca(atributos.get(0));
+				                e.setModelo(atributos.get(1));
+				                e.setAño(Integer.parseInt(atributos.get(2)));
+				                e.setPlaca(atributos.get(3));
+				                e.setPuertas(Integer.parseInt(atributos.get(4)));
+				                e.setCapacidad(Integer.parseInt(atributos.get(5)));
+				                e.setTipo(atributos.get(6));
+				                e.setPrecio(Integer.parseInt(atributos.get(7)));
+				                e.setDisponible(true);
+				                String mensaje = comprarDAO.registrarCarro(e, archivo);
+				                vista.imprimir(mensaje +"" + "\n");
+			                }else {
+			                	System.out.println("Se registraro mal los datos");
+			                }
+			                
+			                
+			    
+		        	  }catch (NoSuchElementException e) {
+						// TODO: handle exception
+		        		  vista.imprimir("¡Lo sentimos! Algun dato fue mal registrado");
+					}
+		              
 		            }
 				break;
 			case "2":
@@ -88,7 +112,7 @@ public class Controller {
 					 vista.imprimir("[Error] Estimado usuario. La placa que introduciste no coincide con ninguna placa registrada en los auto disponibles");
 				 }else {
 					 if(comprarDAO.getListaCompra().get(pos).isDisponible()) {
-						 vista.imprimir("¡Perfecto! El auto está disponible");
+						 vista.imprimir("Â¡Perfecto! El auto estÃ¡ disponible");
 						 vista.imprimir("Porfavor, coloque el nombre del cliente y el valor de la venta de la siguiente manera:");
 						 vista.imprimir("nombreCliente, valor de la venta");
 					
@@ -99,7 +123,7 @@ public class Controller {
 				                // el objeto scanner lee linea a linea desde el archivo
 				                String linea = scannerVenta.nextLine();
 				                Scanner delimitar = new Scanner(linea);
-				                // se usa una expresi�n regular
+				                // se usa una expresiï¿½n regular
 				                // que valida que antes o despues de una coma (,) exista cualquier cosa
 				                // parte la cadena recibida cada vez que encuentre una coma
 				                delimitar.useDelimiter("\\s*,\\s*");
@@ -110,7 +134,7 @@ public class Controller {
 				                e.setPlaca(comprarDAO.getListaCompra().get(pos).getPlaca());
 				                e.setMarca(comprarDAO.getListaCompra().get(pos).getMarca());
 				                e.setModelo(comprarDAO.getListaCompra().get(pos).getModelo());
-				                e.setAño(comprarDAO.getListaCompra().get(pos).getAño());
+//				                e.setAÃ±o(comprarDAO.getListaCompra().get(pos).getAÃ±o());
 				                e.setPuertas(comprarDAO.getListaCompra().get(pos).getPuertas());
 				                e.setCapacidad(comprarDAO.getListaCompra().get(pos).getPuertas());
 				                e.setTipo(comprarDAO.getListaCompra().get(pos).getTipo());
@@ -121,7 +145,7 @@ public class Controller {
 				                vista.imprimir(mensaje +"" + "\n");
 				            }
 					 }else {
-						 vista.imprimir("¡Lo sentimos!. Ese carro ya fue vendido");
+						 vista.imprimir("Â¡Lo sentimos!. Ese carro ya fue vendido");
 					 }
 				
 				 }
@@ -155,7 +179,7 @@ public class Controller {
 				vista.imprimir(comprarDAO.mostrarDisponibilidad());
 				break;
 			case "7":
-				System.out.println("¿Que propiedad del veículo quieres comparar?");
+				System.out.println("Â¿Que propiedad del veÃ­culo quieres comparar?");
 				Scanner comp = new Scanner(System.in);
 				String comparar = comp.next();
 				System.out.println("Ingrese el valor que desea comparar.");
