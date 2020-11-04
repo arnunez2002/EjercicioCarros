@@ -9,16 +9,13 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import co.edu.unbosque.model.Compra;
-import co.edu.unbosque.model.Venta;
 import co.edu.unbosque.model.persistance.CompraDAO;
 import co.edu.unbosque.model.persistance.OperacionArchivo;
-import co.edu.unbosque.model.persistance.VentaDAO;
 import co.edu.unbosque.view.VistaPrinicipal;
 
 public class Controller {
 	private VistaPrinicipal vista;
 	private CompraDAO comprarDAO;
-	private VentaDAO ventaDAO;
 	private File archivo = new File("Data/Compras.dat");
 	private File archivoVenta = new File("Data/Venta.dat");
 	private OperacionArchivo opArchivo;
@@ -27,7 +24,6 @@ public class Controller {
 		opArchivo = new OperacionArchivo();
 		vista = new VistaPrinicipal();
 		comprarDAO = new CompraDAO();
-		ventaDAO = new VentaDAO();
 		comprarDAO.setListaCompra(opArchivo.leerArchivoCompra(archivo));
 //		ventaDAO.setListaVenta(opArchivo.leerArchivoVenta(archivoVenta));
 		
@@ -112,40 +108,11 @@ public class Controller {
 					 vista.imprimir("[Error] Estimado usuario. La placa que introduciste no coincide con ninguna placa registrada en los auto disponibles");
 				 }else {
 					 if(comprarDAO.getListaCompra().get(pos).isDisponible()) {
-						 vista.imprimir("Â¡Perfecto! El auto estÃ¡ disponible");
-						 vista.imprimir("Porfavor, coloque el nombre del cliente y el valor de la venta de la siguiente manera:");
-						 vista.imprimir("nombreCliente, valor de la venta");
-					
-						 Scanner datos = new Scanner(System.in);
-						 Scanner  scannerVenta = new Scanner(datos.nextLine());
-				          while (scannerVenta.hasNextLine()) {
-				        	 
-				                // el objeto scanner lee linea a linea desde el archivo
-				                String linea = scannerVenta.nextLine();
-				                Scanner delimitar = new Scanner(linea);
-				                // se usa una expresiï¿½n regular
-				                // que valida que antes o despues de una coma (,) exista cualquier cosa
-				                // parte la cadena recibida cada vez que encuentre una coma
-				                delimitar.useDelimiter("\\s*,\\s*");
-				                Venta e = new Venta();
-				               
-				                e.setNombreCliente(delimitar.next());
-				                e.setValorVenta(Integer.parseInt(delimitar.next()));
-				                e.setPlaca(comprarDAO.getListaCompra().get(pos).getPlaca());
-				                e.setMarca(comprarDAO.getListaCompra().get(pos).getMarca());
-				                e.setModelo(comprarDAO.getListaCompra().get(pos).getModelo());
-//				                e.setAÃ±o(comprarDAO.getListaCompra().get(pos).getAÃ±o());
-				                e.setPuertas(comprarDAO.getListaCompra().get(pos).getPuertas());
-				                e.setCapacidad(comprarDAO.getListaCompra().get(pos).getPuertas());
-				                e.setTipo(comprarDAO.getListaCompra().get(pos).getTipo());
-				                e.setDisponible(false);
-				                comprarDAO.getListaCompra().get(pos).setDisponible(false);
-				                comprarDAO.cambiarDisponibilidad(pos,false,archivo);
-				                String mensaje = ventaDAO.agregarVentas(e);
-				                vista.imprimir(mensaje +"" + "\n");
-				            }
+						 vista.imprimir("¡Perfecto! El auto está¡ disponible");
+						 comprarDAO.getListaCompra().get(pos).setDisponible(false);
+						 vista.imprimir("El vehículo fue vendido");
 					 }else {
-						 vista.imprimir("Â¡Lo sentimos!. Ese carro ya fue vendido");
+						 vista.imprimir("¡Lo sentimos!. Ese carro ya fue vendido");
 					 }
 				
 				 }
@@ -165,7 +132,6 @@ public class Controller {
 				String placaElimimnar = elim.next();
 				if(comprarDAO.placaRepetida(placaElimimnar)) {
 				 comprarDAO.eliminarCompra(placaElimimnar, archivo);
-				 vista.imprimir(ventaDAO.eliminarVenta(placaElimimnar, archivoVenta));
 					vista.imprimir(""+"\n");
 				}else {
 					vista.imprimir("[Error] Estimado usuario. La placa que introduciste no coincide con ninguna placa registrada en los auto disponibles");
@@ -173,7 +139,6 @@ public class Controller {
 				break;
 			case "5":
 				vista.imprimir(comprarDAO.infoTodoslosVehiculos());
-				vista.imprimir(ventaDAO.infoTodoslosVehiculos());
 				break;
 			case "6":
 				vista.imprimir(comprarDAO.mostrarDisponibilidad());

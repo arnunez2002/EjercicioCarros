@@ -25,12 +25,8 @@ public class CompraDAO {
 				opArchivo.escribirEnArchivoCompra(listaCompra, archivo);
 				mensaje =  "Se registró un nuevo auto";
 		}
-		return mensaje;
-		
+		return mensaje;	
 	}
-	
-	
-	
 	
 	public boolean placaRepetida (String placa) {
 		boolean repetido = false;
@@ -42,9 +38,9 @@ public class CompraDAO {
 		return repetido;
 	}
 	public String buscarCarro (String placa) {
-		String contenido = "";
+		String contenido = "No se encontro carro con la placa";
 		for (int i = 0; i < listaCompra.size(); i++) {
-			if(listaCompra.get(i).getPlaca().contentEquals(placa)) {
+			if(listaCompra.get(i).getPlaca().equals(placa)) {
 				contenido = "Datos del auto con la placa: " + placa +" es: "+ "\n";
 				contenido = contenido
 				+"Marca: "+listaCompra.get(i).getMarca() + "\n"
@@ -60,9 +56,6 @@ public class CompraDAO {
 				}else {
 					contenido = contenido +"Disponobilidad: Vendido"+"\n";
 				}
-			}
-			else {
-				contenido = "No se encontro carro con la placa";
 			}
 		}
 		return contenido;}
@@ -105,6 +98,7 @@ public class CompraDAO {
 	}
 	
 	public String eliminarCompra (String placa, File archivo) {
+		String mensaje = "No se encontro un carro con la placa indicada";
 		for (int i = 0; i < listaCompra.size(); i++) {
 			if (listaCompra.get(i).getPlaca().equals(placa)) {
 				listaCompra.remove(i);
@@ -116,15 +110,10 @@ public class CompraDAO {
 					e.printStackTrace();
 				}
 				opArchivo.escribirEnArchivoCompra(listaCompra, archivo);
-				
-			}
-			
+				mensaje = "Se eliminó el carro de la lista de los carros comprados";
+			}			
 		}
-		
-		
-		
-		return "Se eliminó el carro de la lista de los carros comprados";
-		
+		return mensaje;
 	}
 	
 	public String  infoTodoslosVehiculos () {	String contenido = "La informacion de todos los vehiculos comprados: " + "\n";
