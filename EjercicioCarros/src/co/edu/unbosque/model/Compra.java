@@ -5,6 +5,9 @@ import java.util.Date;
 
 public class Compra implements Serializable {
 
+	/**
+	 * 
+	 */
 	private static final long serializable = 1l;
 	private String marca;
 	private String modelo;

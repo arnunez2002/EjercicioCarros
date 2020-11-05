@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 import co.edu.unbosque.model.Compra;
 import co.edu.unbosque.model.persistance.CompraDAO;
 import co.edu.unbosque.model.persistance.OperacionArchivo;
@@ -26,13 +28,13 @@ public class Controller {
 		comprarDAO = new CompraDAO();
 		comprarDAO.setListaCompra(opArchivo.leerArchivoCompra(archivo));
 //		ventaDAO.setListaVenta(opArchivo.leerArchivoVenta(archivoVenta));
-		
+
 	}
 
 	public void operiaciones() {
-		
+
 		boolean cont = true;
-		while(cont) {
+		while (cont) {
 			vista.imprimir("Bienvenido al programa");
 			vista.imprimir("Opciones a realizar:");
 			vista.imprimir("Marque:");
@@ -52,89 +54,112 @@ public class Controller {
 				vista.imprimir("bienvenido al sistema de registro.");
 				vista.imprimir("Para registrar un vehiculo tienes que colocar sus datos de la siguiente manera:");
 				vista.imprimir("marca,modelo,año,placa,numero de puertas,capacidad,tipo,precio");
-				
+
 				Scanner datosCompra = new Scanner(System.in);
-				Scanner  scanner = new Scanner(datosCompra.nextLine());
+				Scanner scanner = new Scanner(datosCompra.nextLine());
 				ArrayList<String> atributos = new ArrayList<String>();
-		          while (scanner.hasNextLine()) {
-		        	  
-		        	  try {
-		        		  // el objeto scanner lee linea a linea desde el archivo
-			                String linea = scanner.nextLine();
-			                Scanner delimitar = new Scanner(linea);
-			                // se usa una expresi�n regular
-			                // que valida que antes o despues de una coma (,) exista cualquier cosa
-			                // parte la cadena recibida cada vez que encuentre una coma
-			                delimitar.useDelimiter("\\s*,\\s*");
-			                
-			                while(delimitar.hasNext()){  
-			                    System.out.println(delimitar.next());  
-			                    atributos.add(delimitar.next());
-			                }  
-			                
-			                if(atributos.size()==7) {
-			                	System.out.println("Se ingresó bien");
-			                    Compra e = new Compra();
-				                e.setMarca(atributos.get(0));
-				                e.setModelo(atributos.get(1));
-				                e.setAño(Integer.parseInt(atributos.get(2)));
-				                e.setPlaca(atributos.get(3));
-				                e.setPuertas(Integer.parseInt(atributos.get(4)));
-				                e.setCapacidad(Integer.parseInt(atributos.get(5)));
-				                e.setTipo(atributos.get(6));
-				                e.setPrecio(Integer.parseInt(atributos.get(7)));
-				                e.setDisponible(true);
-				                String mensaje = comprarDAO.registrarCarro(e, archivo);
-				                vista.imprimir(mensaje +"" + "\n");
-			                }else {
-			                	System.out.println("Se registraro mal los datos");
-			                }
-			                
-			                
-			    
-		        	  }catch (NoSuchElementException e) {
+				
+				while (scanner.hasNextLine()) {
+					
+					try {
+						// el objeto scanner lee linea a linea desde el archivo
+						String linea = scanner.nextLine();
+						Scanner delimitar = new Scanner(linea);
+					
+						// se usa una expresi�n regular
+						// que valida que antes o despues de una coma (,) exista cualquier cosa
+						// parte la cadena recibida cada vez que encuentre una coma
+						delimitar.useDelimiter("\\s*,\\s*");
+
+						while (delimitar.hasNext()) {
+							atributos.add(delimitar.next());
+							
+						}
+					
+						if (atributos.size() == 8) {
+							
+							if (atributos.get(2).matches("[0-9]*") || atributos.get(4).matches("[0-9]*")
+									|| atributos.get(5).matches("[0-9]*") || atributos.get(7).matches("[0-9]*")) {
+								if (Integer.parseInt(atributos.get(2)) > 1070) {
+									String subPlaca = "ABC123".substring(0, 3);
+									vista.imprimir("La plca de su nuevo ehiculo es: "+subPlaca);
+									String subFinalPlaca = atributos.get(3).substring(3, atributos.get(3).length());
+									if (subPlaca.matches("[0-9]*") == false && subFinalPlaca.matches("[0-9]*")) {
+										Compra e = new Compra();
+										e.setMarca(atributos.get(0));
+										e.setModelo(atributos.get(1));
+										e.setAño(Integer.parseInt(atributos.get(2)));
+										e.setPlaca(atributos.get(3));
+										e.setPuertas(Integer.parseInt(atributos.get(4)));
+										e.setCapacidad(Integer.parseInt(atributos.get(5)));
+										e.setTipo(atributos.get(6));
+										e.setPrecio(Integer.parseInt(atributos.get(7)));
+										e.setDisponible(true);
+
+										String mensaje = comprarDAO.registrarCarro(e, archivo);
+										vista.imprimir(mensaje + "" + "\n");
+									} else {
+										vista.imprimir("¡ERROR! Ingresaste una placa no valida");
+									}
+								} else {
+									vista.imprimir("¡ERROR! Ingresaste un año menor a 1070 (eso no se permite)");
+								}
+							} else {
+								vista.imprimir(
+										"¡ERROR! Ingresaste un año, numero e puertas, capacidad o precio NO válido");
+							}
+						} else if (atributos.size() < 8) {
+							vista.imprimir("¡ERROR! Se ingresaron Datos incompletos (Deben ser 8)");
+						} else if (atributos.size() > 8) {
+							vista.imprimir("¡ERROR!  Se ingresaron Datos de más (Deben ser 8)");
+						}
+
+					} catch (NoSuchElementException e) {
 						// TODO: handle exception
-		        		  vista.imprimir("¡Lo sentimos! Algun dato fue mal registrado");
+						vista.imprimir("¡Lo sentimos! Algun dato fue mal registrado");
 					}
-		              
-		            }
+
+				}
 				break;
 			case "2":
 				vista.imprimir("Bienvenido al sistema de venta");
 				vista.imprimir("Introduce la placa del auto a vender");
-				 Scanner placa = new Scanner(System.in);
-				 int  pos = comprarDAO.atributoCompra(placa.nextLine());
-				 if(pos==-1) {
-					 vista.imprimir("[Error] Estimado usuario. La placa que introduciste no coincide con ninguna placa registrada en los auto disponibles");
-				 }else {
-					 if(comprarDAO.getListaCompra().get(pos).isDisponible()) {
-						 vista.imprimir("¡Perfecto! El auto está¡ disponible");
-						 comprarDAO.getListaCompra().get(pos).setDisponible(false);
-						 vista.imprimir("El vehículo fue vendido");
-					 }else {
-						 vista.imprimir("¡Lo sentimos!. Ese carro ya fue vendido");
-					 }
-				
-				 }
-				
+				Scanner placa = new Scanner(System.in);
+				int pos = comprarDAO.atributoCompra(placa.nextLine());
+				if (pos == -1) {
+					vista.imprimir(
+							"[Error] Estimado usuario. La placa que introduciste no coincide con ninguna placa registrada en los auto disponibles");
+				} else {
+					if (comprarDAO.getListaCompra().get(pos).isDisponible()) {
+						vista.imprimir("¡Perfecto! El auto está¡ disponible");
+						comprarDAO.getListaCompra().get(pos).setDisponible(false);
+						comprarDAO.vender(pos, archivo);
+						vista.imprimir("El vehículo fue vendido");
+					} else {
+						vista.imprimir("¡Lo sentimos!. Ese carro ya fue vendido");
+					}
+
+				}
+
 				break;
 			case "3":
-				System.out.println("Ingresa la placa.");
+				vista.imprimir("Ingresa la placa.");
 				Scanner buscar = new Scanner(System.in);
 				String placaBuscar = buscar.next();
 				String aux = comprarDAO.buscarCarro(placaBuscar);
-				System.out.println(aux);
+				vista.imprimir(aux);
 				break;
 
 			case "4":
 				vista.imprimir("Ingrese la placa para eliminar.");
 				Scanner elim = new Scanner(System.in);
 				String placaElimimnar = elim.next();
-				if(comprarDAO.placaRepetida(placaElimimnar)) {
-				 comprarDAO.eliminarCompra(placaElimimnar, archivo);
-					vista.imprimir(""+"\n");
-				}else {
-					vista.imprimir("[Error] Estimado usuario. La placa que introduciste no coincide con ninguna placa registrada en los auto disponibles");
+				if (comprarDAO.placaRepetida(placaElimimnar)) {
+					comprarDAO.eliminarCompra(placaElimimnar, archivo);
+					vista.imprimir("" + "\n");
+				} else {
+					vista.imprimir(
+							"[Error] Estimado usuario. La placa que introduciste no coincide con ninguna placa registrada en los auto disponibles");
 				}
 				break;
 			case "5":
@@ -144,21 +169,30 @@ public class Controller {
 				vista.imprimir(comprarDAO.mostrarDisponibilidad());
 				break;
 			case "7":
-				System.out.println("Â¿Que propiedad del veÃ­culo quieres comparar?");
+				vista.imprimir("Coloca la placa del primer vehiculo");
 				Scanner comp = new Scanner(System.in);
-				String comparar = comp.next();
-				System.out.println("Ingrese el valor que desea comparar.");
+				String vehiculo1 = comp.next();
+				if(comprarDAO.placaRepetida(vehiculo1)==false) {
+					vista.imprimir("[ERROR] No se encuentra la placa ingresada" +"\n" +"\n");
+					break;
+				}
+				vista.imprimir("Coloca la placa del segundo vehiculo" );
 				Scanner valorP = new Scanner(System.in);
-				String valor = valorP.next();
-				System.out.println(comprarDAO.comparar(comparar,valor));
+				String vehiculo2 = valorP.next();
+				if(comprarDAO.placaRepetida(vehiculo2)==false) {
+					vista.imprimir("[ERROR] No se encuentra la placa ingresada"+"\n" +"\n");
+					break;
+				}
+				vista.imprimir(comprarDAO.comparar(vehiculo1, vehiculo2));
 				break;
-			default: vista.imprimir("[ERROR]  Marcaste una opcion no valida");
-	        break;
+			default:
+				vista.imprimir("[ERROR]  Marcaste una opcion no valida");
+				break;
 
 			}
 
 		}
-		
+
 	}
 
 }

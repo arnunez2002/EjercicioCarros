@@ -54,7 +54,7 @@ public class OperacionArchivo {
 	 * <b>post</b>Agrega la informacion del arrayList al archivo.dat .<br>
 	 * @param salida Es un objeto ObjectOutputStream. salida != null.
 	 */
-	public void escribirEnArchivoCompra (ArrayList<Compra> pokemons, File archivo) {
+	public void escribirEnArchivoCompra (ArrayList<Compra> pokemons, String archivo) {
 		try {
 			salida= new ObjectOutputStream(new FileOutputStream(archivo));
 			salida.writeObject(pokemons);
@@ -67,6 +67,9 @@ public class OperacionArchivo {
 			e.printStackTrace();
 		}
 	}
+	
+
+	
 	
 	
 }
