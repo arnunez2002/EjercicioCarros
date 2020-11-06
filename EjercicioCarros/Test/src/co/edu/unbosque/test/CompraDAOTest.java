@@ -78,13 +78,16 @@ public class CompraDAOTest  extends TestCase{
 	public void testComparar(){
 		setEscenario();
 		
-		assertEquals("Debio comparar exitosamente","Se comparó exitosamente",compra.comparar("modelo", "2"));
-		assertEquals("Debio comparar exitosamente","Se comparó exitosamente",compra.comparar("año", "2000"));
-		assertEquals("Debio comparar exitosamente","Se comparó exitosamente",compra.comparar("placa", "123"));
-		assertEquals("Debio comparar exitosamente","Se comparó exitosamente",compra.comparar("capacidad", "2"));
-		assertEquals("Debio comparar exitosamente","Se comparó exitosamente",compra.comparar("puertas", "2"));
-		assertEquals("Debio comparar exitosamente","Se comparó exitosamente",compra.comparar("tipo", "deportivo"));
-		assertEquals("No debio comparar exitosamente","No se encontro el valor deseado en la lista",compra.comparar("modelo", "9"));
+		assertEquals("Debio comparar los dos vehículos","Atributos			vehiculo 1		Vehiculo 2			Comparaciones\n" + 
+				"\n" + 
+				"placa: 				[123]		[123]				[Son diferentes]\n" + 
+				"Marca: 				[1]		[1]			[Son iguales]\n" + 
+				"Modelo: 			[2]			[2]			[Son iguales]\n" + 
+				"Capacidad:			[2]			[2]				[Son iguales]\n" + 
+				"Puertas Cantidad:		[2]			[2]				[Son iguales]\n" + 
+				"Tipo:				[deportivo]		[deportivo]			[Son iguales]\n" + 
+				"Disponibilidad: 		[Disponible]		[Disponible]			[Son iguales]\n" + 
+				"",compra.comparar("modelo", "2"));
 	}
 	
 	public void testMostrarDisponibilidad() {

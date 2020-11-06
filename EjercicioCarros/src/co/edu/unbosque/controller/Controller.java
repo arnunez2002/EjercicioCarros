@@ -1,14 +1,9 @@
 package co.edu.unbosque.controller;
 
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-
-import javax.swing.JOptionPane;
 
 import co.edu.unbosque.model.Compra;
 import co.edu.unbosque.model.persistance.CompraDAO;
@@ -19,7 +14,6 @@ public class Controller {
 	private VistaPrinicipal vista;
 	private CompraDAO comprarDAO;
 	private File archivo = new File("Data/Compras.dat");
-	private File archivoVenta = new File("Data/Venta.dat");
 	private OperacionArchivo opArchivo;
 
 	public Controller() {
